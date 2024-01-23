@@ -1,13 +1,12 @@
 import pytest
+import selenium
 from selenium import webdriver
+from selenium.webdriver.edge.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
-from selenium.webdriver.ie.service import Service as IEService
-from webdriver_manager.microsoft import IEDriverManager
-
-
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 driver = None
 browser = 'Chrome'
@@ -26,7 +25,7 @@ def init_web_driver(request):
 
 
 def get_web_driver():
-    if browser.lower == 'chrome':
+    if browser.lower() == 'chrome':
         driver = get_chrome()
 
     elif browser.lower() == 'firefox':
@@ -53,7 +52,8 @@ def get_firefox():
 
 
 def get_edge():
-    edge_driver = webdriver.Ie(service=IEService(IEDriverManager().install()))
+    srv = Service(EdgeChromiumDriverManager().install())
+    edge_driver = selenium.webdriver.Edge(service=srv)
     return edge_driver
 
 
