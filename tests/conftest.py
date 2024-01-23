@@ -7,9 +7,11 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from utils.manage_pages import ManagePages
 
 driver = None
-browser = 'Edge'
+browser = 'Chrome'
 
 
 @pytest.fixture(scope='class')
@@ -20,6 +22,7 @@ def init_web_driver(request):
     driver.implicitly_wait(5)
     driver.get('http://localhost:3000')
     request.cls.driver = driver
+    ManagePages.init_web_pages()
     yield
     driver.close()
 
