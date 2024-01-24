@@ -1,5 +1,5 @@
 import tests.conftest as conft
-from pages.main_page import MainPage
+from pages.web_pages.main_page import MainPage
 from pages.web_pages.login_page import LoginPage
 
 #Web Objects

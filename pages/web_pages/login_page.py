@@ -1,8 +1,7 @@
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
-
-from pages.main_page import MainPage
 from extensions.ui_actions import UiActions
 
 
@@ -26,10 +25,30 @@ class LoginPage(UiActions):
     def click_login_button(self):
         self.click(self.login_button)
 
+    def login_to_app(self, user, password):
+        self.set_username(user)
+        self.set_password(password)
+        self.click_login_button()
+        message = self.get_login_message()
+        self.skip()
+        return message
+
     def skip(self):
-        skip = WebDriverWait(self.driver, 2).until(EC.visibility_of_element_located(*self.skip_button))
+        skip = WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located(*self.skip_button))
         skip.click()
-        return MainPage(self.driver)
+        # return MainPage
+
+    def get_login_message(self):
+        try:
+            msg_elem = self.get_text(self.success_login_msg)
+            return str(msg_elem)
+        except NoSuchElementException:
+            try:
+                msg_elem = self.get_text(self.failed_login_msg)
+                return str(msg_elem)
+            except NoSuchElementException:
+                return "Login message not found"
+
 
 
 
