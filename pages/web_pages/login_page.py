@@ -1,6 +1,6 @@
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from extensions.ui_actions import UiActions
 
@@ -9,12 +9,9 @@ class LoginPage(UiActions):
     user_name = (By.CSS_SELECTOR, 'input[name="user"]')
     password_field = (By.CSS_SELECTOR, '#current-password')
     login_button = (By.CSS_SELECTOR, 'button[aria-label="Login button"]')
-    skip_button = (By.LINK_TEXT, 'skip')
+    skip_button = (By.CLASS_NAME, 'css-2vac51-button')
     success_login_msg = (By.XPATH, '//div[contains(text(),"Logged in")]')
     failed_login_msg = (By.XPATH, '//div[contains(text(),"Invalid username or password")]')
-
-    # def __init__(self, driver):
-    #     super().__init__(driver)
 
     def set_username(self, user):
         self.set_text(self.user_name, user)
@@ -30,12 +27,10 @@ class LoginPage(UiActions):
         self.set_password(password)
         self.click_login_button()
         message = self.get_login_message()
-        self.skip()
         return message
 
-    def skip(self):
-        skip = WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located(*self.skip_button))
-        skip.click()
+    def click_skip(self):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(self.skip_button)).click()
         # return MainPage
 
     def get_login_message(self):

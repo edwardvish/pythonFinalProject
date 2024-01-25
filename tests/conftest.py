@@ -15,8 +15,6 @@ from utils.manage_pages import ManagePages
 
 driver = None
 browser = 'Chrome'
-# action = None
-# GLOBAL_TIMEOUT = 0
 
 
 @pytest.fixture(scope='class')
@@ -27,8 +25,6 @@ def init_web_driver(request):
     driver.implicitly_wait(5)
     driver.get('http://localhost:3000')
     request.cls.driver = driver
-    # globals()['GLOBAL_TIMEOUT'] = 5
-    # globals()['action'] = ActionChains(driver)
     ManagePages.init_web_pages()
     yield
     time.sleep(5)

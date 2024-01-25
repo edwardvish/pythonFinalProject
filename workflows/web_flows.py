@@ -10,6 +10,7 @@ class WebFlows:
         # page.web_login_page.click_login_button()
         # login_msg = page.web_login_page.get_login_message()
         login_msg = page.web_login_page.login_to_app(user, password)
+        page.web_login_page.click_skip()
         return login_msg
 
     @staticmethod
