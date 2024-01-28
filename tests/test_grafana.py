@@ -11,3 +11,8 @@ class TestWeb(BaseTest):
         assert msg.lower() == 'logged in'
         WebFlows.verify_grafana_title('Welcome to Grafana')
 
+    def test_verify_upper_menu(self):
+        WebFlows.verify_upper_menu_buttons()
+
+
+
