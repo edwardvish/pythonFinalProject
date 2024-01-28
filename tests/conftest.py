@@ -3,18 +3,17 @@ import time
 import pytest
 import selenium
 from selenium import webdriver
-from selenium.webdriver import ActionChains
 from selenium.webdriver.edge.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from selenium.webdriver.support.ui import WebDriverWait
+
+from utils.common_ops import get_data
 from utils.manage_pages import ManagePages
 
 driver = None
-browser = 'Chrome'
 
 
 @pytest.fixture(scope='class')
@@ -22,8 +21,9 @@ def init_web_driver(request):
     globals()['driver'] = get_web_driver()
     driver = globals()['driver']
     driver.maximize_window()
-    driver.implicitly_wait(5)
-    driver.get('http://localhost:3000')
+    timeout = int(get_data('WaitTime'))
+    driver.implicitly_wait(timeout)
+    driver.get(get_data('URL'))
     request.cls.driver = driver
     ManagePages.init_web_pages()
     yield
@@ -32,6 +32,7 @@ def init_web_driver(request):
 
 
 def get_web_driver():
+    browser = get_data('Browser')
     if browser.lower() == 'chrome':
         driver = get_chrome()
 
