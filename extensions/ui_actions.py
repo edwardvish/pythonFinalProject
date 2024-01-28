@@ -1,10 +1,8 @@
-import pytest
 
 from selenium.webdriver import ActionChains
 
 
-# @pytest.mark.usefixtures("init_web_driver")
-class UiActions():
+class UiActions:
     def __init__(self, driver):
         self.driver = driver
         self.action = ActionChains(driver)
