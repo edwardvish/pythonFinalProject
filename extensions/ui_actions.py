@@ -38,3 +38,5 @@ class UiActions:
         trgt_elem = self.find(*locator2)
         self.action.drag_and_drop(src_elem, trgt_elem).perform()
 
+
+

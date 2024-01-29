@@ -29,7 +29,8 @@ class WebFlows:
                  page.web_upper_menu_page.get_dash_settings(),
                  page.web_upper_menu_page.get_view_mode(),
                  ]
-        Verifications.soft_displayed(elems)
+        # Verifications.soft_displayed(elems)
+        Verifications.soft_assert(elems)
 
 
 
