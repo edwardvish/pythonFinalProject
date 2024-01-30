@@ -15,4 +15,10 @@ class TestWeb(BaseTest):
         WebFlows.verify_upper_menu_buttons()
 
 
+    def test_add_new_user(self):
+        pass
+
+
+
+
 

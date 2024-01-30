@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from extensions.ui_actions import UiActions
+from utils.common_ops import get_data
 
 
 class LoginPage(UiActions):
@@ -30,7 +31,7 @@ class LoginPage(UiActions):
         return message
 
     def click_skip(self):
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(self.skip_button)).click()
+        WebDriverWait(self.driver, get_data('WaitTime')).until(EC.visibility_of_element_located(self.skip_button)).click()
         # return MainPage
 
     def get_login_message(self):
