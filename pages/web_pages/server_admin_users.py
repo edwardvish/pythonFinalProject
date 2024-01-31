@@ -17,17 +17,20 @@ class ServerAdminUsersPage(UiActions):
         title = self.get_text(self.title)
         return title
 
-    def get_search(self):
-        return self.find(*self.search)
+    # def get_search(self):
+    #     return self.find(*self.search)
 
-    def get_new_user(self):
-        return self.find(*self.new_user)
+    # def get_new_user(self):
+    #     return self.find(*self.new_user)
+
+    def open_new_user_from(self):
+        return self.click(self.new_user)
 
     def get_users_list(self):
         return self.find_multiple(*self.users_list)
 
-    def get_all_users(self):
-        return self.find(*self.all_users)
+    # def get_all_users(self):
+    #     return self.find(*self.all_users)
 
     def get_user_by_index(self, index):
         return self.get_users_list()[index]
@@ -37,17 +40,17 @@ class ServerAdminUsersPage(UiActions):
         users_by_user_name = (By.XPATH, elem)
         return self.find(*users_by_user_name)
 
-    def get_active_30_days(self):
-        return self.find(*self.active_30_days)
+    # def get_active_30_days(self):
+    #     return self.find(*self.active_30_days)
 
-    def get_delete_user(self):
-        return self.find(*self.delete_user)
+    # def get_delete_user(self):
+    #     return self.find(*self.delete_user)
 
-    def get_delete_dialog(self):
-        return self.find(*self.delete_dialog)
+    # def get_delete_dialog(self):
+    #     return self.find(*self.delete_dialog)
 
-    def get_confirm_delete(self):
-        return self.find(*self.dialog_confirm_delete)
+    # def get_confirm_delete(self):
+    #     return self.find(*self.dialog_confirm_delete)
 
 
 

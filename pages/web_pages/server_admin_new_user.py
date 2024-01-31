@@ -12,25 +12,42 @@ class ServerAdminNewUser(UiActions):
     create_button = (By.CSS_SELECTOR, ".css-sqvqs4-button")
 
     def get_dropdown(self):
-        self.find(*self.menu_drop_down)
+        return self.find(*self.menu_drop_down)
 
     def get_form_title(self):
-        self.find(*self.form_title)
+        return self.find(*self.form_title)
 
     def get_name(self):
-        self.find_multiple(*self.name)
+        return self.find_multiple(*self.name)
+
+    def set_name(self, name):
+        return self.set_text(self.name, name)
 
     def get_email(self):
-        self.find(*self.email)
+        return self.find(*self.email)
+
+    def set_email(self, email):
+        return self.set_text(self.email,email)
 
     def get_username(self):
-        self.find(*self.username)
+        return self.find(*self.username)
+
+    def set_username(self, username):
+        return self.set_text(self.name, username)
 
     def get_password(self):
-        self.find(*self.password)
+        return self.find(*self.password)
+
+    def set_password(self, password):
+        return self.set_text(self.password, password)
 
     def get_create_button(self):
-        self.find(*self.create_button)
+        return self.find(*self.create_button)
+
+    def click_create_button(self):
+        return self.click(self.create_button)
+
+
 
 
 
