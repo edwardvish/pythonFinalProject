@@ -36,5 +36,9 @@ class Verifications(UiActions):
                 print('Soft Display Failed, Elements failed:' + str(failed))
             raise AssertionError('Soft Display Failed')
 
+    @staticmethod
+    def verify_num_of_elements(elems, expected):
+        assert len(elems) == expected, 'The number of elements in list:' + str(len(elems)) + 'does not match expected'
+
 
 
