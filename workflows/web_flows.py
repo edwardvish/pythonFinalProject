@@ -1,11 +1,15 @@
+import pages
 import utils.manage_pages as page
-from extensions.ui_actions import ActionUtils, UiActions
+from extensions.ui_actions import UiActions
 from extensions.verifications import Verifications
+from pages.web_pages.server_admin_users import ServerAdminUsersPage
 from utils.common_ops import wait_for_element, Oper
 # from pages.web_pages.main_page import MainPage
 
 
-class WebFlows():
+class WebFlows:
+    def __init__(self, driver):
+        self.ui_actions = UiActions(driver)
     @staticmethod
     def login_flow(user: str, password: str):
         # page.web_login_page.set_username(user)
@@ -35,19 +39,20 @@ class WebFlows():
 
     @staticmethod
     def open_users_page(expected: str):
+        # ui_actions = UiActions(driver)
         # locate the server admin element in the left menu page
         elem1 = page.web_left_menu_page.get_server_admin_menu()
         elem2 = page.ws_admin_menu_page.get_users()
         # mouse hover the icon and click on the users
-        ActionUtils.mouse_hover(elem1, elem2)
+        UiActions.mouse_hover(elem1, elem2)
         # wait for page to load, extract the title.
         wait_for_element(Oper.Element_Displayed,page.ws_admin_users.title)
         actual = page.ws_admin_users.get_main_title()
         # verify server admin users page is loaded.
-        Verifications.verify_equals(actual, expected)
+        Verifications.verify_equals(actual.lower(), expected.lower())
 
     @staticmethod
-    def create_new_user(expected:str, name:str, user:str, email:str,password:str):
+    def create_new_user(expected: str, name: str, user : str, email: str, password: str):
         # locate and click the new user form
         page.ws_admin_users.open_new_user_from()
         # wait for the form to load and get the form title
@@ -63,7 +68,14 @@ class WebFlows():
         page.ws_admin_new_user.click_create()
 
     @staticmethod
-    def count_user_quant(number):
+    def verify_user_num(number):
+
+        if number > 0:
+            wait_for_element(Oper.Element_Displayed, ServerAdminUsersPage.users_list)
+            actual = page.ws_admin_users.get_users_list()
+            Verifications.verify_num_of_elements(actual, number)
+
+
 
 
 

@@ -1,4 +1,3 @@
-import pytest
 
 from utils.base_test import BaseTest
 from utils.common_ops import get_data
@@ -6,6 +5,7 @@ from workflows.web_flows import WebFlows
 
 
 class TestWeb(BaseTest):
+
     def test_verify_login(self):
         msg = WebFlows.login_flow(get_data('UserName'), get_data('Password'))
         assert msg.lower() == 'logged in'
@@ -14,9 +14,13 @@ class TestWeb(BaseTest):
     def test_verify_upper_menu(self):
         WebFlows.verify_upper_menu_buttons()
 
-
     def test_add_new_user(self):
-        pass
+        WebFlows.open_users_page('Server Admin')
+        WebFlows.create_new_user('Add new user','Edward','Edward','test@test.com','abc123456')
+        WebFlows.create_new_user('Add new user','Edward2','Edward2','test2@test.com','2abc123456')
+        WebFlows.verify_user_num(3)
+
+
 
 
 
