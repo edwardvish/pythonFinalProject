@@ -15,7 +15,6 @@ class UiActions:
         elem = UiActions.find(driver, *locator)
         elem.click()
 
-
     @staticmethod
     def select_dropdown(driver, locator1, locator2):
         UiActions.click(driver, locator1)

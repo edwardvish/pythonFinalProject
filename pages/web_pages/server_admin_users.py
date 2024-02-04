@@ -8,7 +8,7 @@ users_list = (By.XPATH, "//table[@class='filter-table form-inline filter-table--
 all_users = (By.XPATH, "//label[text()='All users']")
 active_30_days = (By.XPATH, "//label[text()='Active last 30 days']")
 delete_user = (By.XPATH, "//div/button[@class='css-19vct9a-button']")
-delete_dialog = (By.CLASS_NAME, ".css-14jhtpp-modalHeader")
+delete_dialog = (By.CSS_SELECTOR, ".css-14jhtpp-modalHeader")
 dialog_confirm_delete = (By.CSS_SELECTOR, "button[aria-label='Confirm Modal Danger Button']")
 
 
@@ -40,8 +40,8 @@ class ServerAdminUsersPage(UiActions):
 
     def get_user_by_name(self, name):
         elem = f"//a[@title='{str(name)}']"
-        users_by_user_name = (By.XPATH, elem)
-        return UiActions.find(self.driver, *users_by_user_name)
+        user_by_user_name = (By.XPATH, elem)
+        return UiActions.find(self.driver, *user_by_user_name)
 
     # def get_active_30_days(self):
     #     return self.find(*self.active_30_days)

@@ -28,5 +28,13 @@ class Oper:
     Element_Exists = 'exists'
     Element_Displayed = 'displayed'
 
+# Enum for selecting a user by name or index
+
+
+class By:
+    INDEX = 'index'
+    USER = 'name'
+
+
 
 

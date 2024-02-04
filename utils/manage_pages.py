@@ -6,7 +6,6 @@ from pages.web_pages.server_admin_menu_page import ServerAdminMenuPage
 from pages.web_pages.server_admin_new_user import ServerAdminNewUser
 from pages.web_pages.server_admin_users import ServerAdminUsersPage
 from pages.web_pages.upper_menu_page import UpperMenuPage
-
 #Web Objects
 web_login_page = None
 web_main_page = None
@@ -28,4 +27,5 @@ class ManagePages:
         globals()['ws_admin_users'] = ServerAdminUsersPage(conft.driver)
         globals()['ws_admin_menu_page'] = ServerAdminMenuPage(conft.driver)
         globals()['ws_admin_new_user'] = ServerAdminNewUser(conft.driver)
+
 

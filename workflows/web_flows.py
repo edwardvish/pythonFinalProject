@@ -1,20 +1,17 @@
-import time
-
+from time import sleep
 import pages.web_pages.main_page as main_page
 import pages.web_pages.server_admin_users as server_admin_users
 import pages.web_pages.server_admin_new_user as server_admin_new_user
 import utils.manage_pages as page
 from extensions.ui_actions import UiActions
 from extensions.verifications import Verifications
-from utils.common_ops import wait_for_element, Oper
+
+from utils.common_ops import wait_for_element, Oper, get_data
 
 
 # from pages.web_pages.main_page import MainPage
 
-
 class WebFlows:
-    def __init__(self, driver):
-        self.driver = driver
 
     @staticmethod
     def login_flow(user: str, password: str):
@@ -60,6 +57,7 @@ class WebFlows:
     @staticmethod
     def create_new_user(expected: str, name: str, user: str, email: str, password: str):
         # locate and click the new user form
+        wait_for_element(Oper.Element_Displayed, server_admin_users.new_user)
         page.ws_admin_users.open_new_user_from()
         # wait for the form to load and get the form title
         wait_for_element(Oper.Element_Displayed, server_admin_new_user.form_title)
@@ -68,19 +66,17 @@ class WebFlows:
         Verifications.verify_equals(actual, expected)
         # set all form fields
         page.ws_admin_new_user.set_name(name)
-        time.sleep(2)
+        sleep(1)
         page.ws_admin_new_user.set_email(email)
-        time.sleep(2)
-
+        sleep(1)
         page.ws_admin_new_user.set_username(user)
-        time.sleep(2)
-
+        sleep(1)
         page.ws_admin_new_user.set_password(password)
-        time.sleep(2)
-
+        sleep(1)
         page.ws_admin_new_user.click_create_button()
-        time.sleep(2)
-
+    @staticmethod
+    def delete_user_by_name():
+        pass
 
     @staticmethod
     def verify_user_num(number):
@@ -88,3 +84,49 @@ class WebFlows:
             wait_for_element(Oper.Element_Displayed, server_admin_users.users_list)
             actual = page.ws_admin_users.get_users_list()
             Verifications.verify_num_of_elements(actual, number)
+
+    @staticmethod
+    def delete_user_by_index(driver, index):
+        user = page.ws_admin_users.get_user_by_index(index)
+        user.click()
+        UiActions.click(driver, server_admin_users.delete_user)
+        wait_for_element(Oper.Element_Displayed, server_admin_users.delete_dialog)
+        UiActions.click(driver, server_admin_users.dialog_confirm_delete)
+        wait_for_element(Oper.Element_Displayed, server_admin_users.title)
+
+    @staticmethod
+    def delete_user_by_username(driver, name):
+        user = page.ws_admin_users.get_user_by_name(name)
+        user.click()
+        UiActions.click(driver, server_admin_users.delete_user)
+        wait_for_element(Oper.Element_Displayed, server_admin_users.delete_dialog)
+        UiActions.click(driver, server_admin_users.dialog_confirm_delete)
+        wait_for_element(Oper.Element_Displayed, server_admin_users.title)
+
+    @staticmethod
+    def delete_user(driver, by, value):
+        if by == 'index':
+            WebFlows.delete_user_by_index(driver, int(value))
+
+        elif by == 'name':
+            WebFlows.delete_user_by_username(driver, value)
+
+    @staticmethod
+    def grafana_home(driver):
+        driver.get(get_data('URL'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
