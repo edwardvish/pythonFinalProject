@@ -2,11 +2,11 @@ from selenium.webdriver.common.by import By
 from extensions.ui_actions import UiActions
 
 menu_drop_down = (By.CSS_SELECTOR, ".gf-form-input.dropdown-toggle")
-form_title = (By.XPATH, "//div[@class='page-container page-body']/h1'] ")
-name = (By.XPATH, "#name-input")
-email = (By.XPATH, "#email-input")
-username = (By.XPATH, "#username-input")
-password = (By.XPATH, "#password-input")
+form_title = (By.XPATH, "//div[@class='page-container page-body']/h1")
+name = (By.CSS_SELECTOR, "#name-input")
+email = (By.CSS_SELECTOR, "#email-input")
+username = (By.CSS_SELECTOR, "#username-input")
+password = (By.CSS_SELECTOR, "#password-input")
 create_button = (By.CSS_SELECTOR, ".css-sqvqs4-button")
 
 
@@ -36,7 +36,7 @@ class ServerAdminNewUser(UiActions):
         return UiActions.find(self.driver, *username)
 
     def set_username(self, uname):
-        return UiActions.set_text(self.driver, name, uname)
+        return UiActions.set_text(self.driver, username, uname)
 
     def get_password(self):
         return UiActions.find(self.driver, *password)
@@ -48,4 +48,4 @@ class ServerAdminNewUser(UiActions):
         return UiActions.find(self.driver, *create_button)
 
     def click_create_button(self):
-        return UiActions.click(self.driver, create_button)
+        UiActions.click(self.driver, create_button)

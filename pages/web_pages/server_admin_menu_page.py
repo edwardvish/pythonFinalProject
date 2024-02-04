@@ -9,20 +9,20 @@ stats = (By.CSS_SELECTOR, "a[href='/admin/upgrading'] ")
 
 
 class ServerAdminMenuPage(UiActions):
-    def __init__(self,driver):
+    def __init__(self, driver):
         self.driver = driver
 
     def get_users(self):
-        self.find(*users)
+        return UiActions.find(self.driver, *users)
 
     def get_orgs(self):
-        self.find(*orgs)
+        return UiActions.find(self.driver, *orgs)
 
     def get_settings(self):
-        self.find(*settings)
+        return UiActions.find(self.driver, *settings)
 
     def get_plugins(self):
-        self.find(*plugins)
+        return UiActions.find(self.driver, *plugins)
 
     def get_stats(self):
-        self.find(*stats)
+        return UiActions.find(self.driver, *stats)

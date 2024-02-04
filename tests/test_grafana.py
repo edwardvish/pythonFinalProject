@@ -16,8 +16,8 @@ class TestWeb(BaseTest):
 
     def test_add_new_user(self):
         WebFlows.open_users_page('Server Admin')
-        WebFlows.create_new_user('Add new user','Edward','Edward','test@test.com','abc123456')
-        WebFlows.create_new_user('Add new user','Edward2','Edward2','test2@test.com','2abc123456')
+        WebFlows.create_new_user('Add new user','Edward','Edward1','test@test.com','abc123456')
+        WebFlows.create_new_user('Add new user','Edward2','Edward3','test2@test.com','2abc123456')
         WebFlows.verify_user_num(3)
 
 
@@ -26,3 +26,4 @@ class TestWeb(BaseTest):
 
 
 
+ 

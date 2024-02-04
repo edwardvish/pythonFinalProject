@@ -14,7 +14,7 @@ class Verifications(UiActions):
             return print('Element ', str(locator),' not found')
 
     @staticmethod
-    def verify_equals(expected, actual):
+    def verify_equals(actual, expected):
         assert actual == expected, 'Values not equal, the actual: ' + str(actual) + 'the expected is ' + str(expected)
 
     # Verify Menu Buttons Flow using smart-assertions
