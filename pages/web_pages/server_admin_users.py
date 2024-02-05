@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 from extensions.ui_actions import UiActions
 
 title = (By.CSS_SELECTOR, '.page-header__title')
-search = (By.CLASS_NAME, "input[class='css-fcoerl-input-input']")
+search = (By.CSS_SELECTOR, "input[class='css-fcoerl-input-input']")
 new_user = (By.CSS_SELECTOR, ".css-1mhnkuh")
 users_list = (By.XPATH, "//table[@class='filter-table form-inline filter-table--hover']/tbody/tr")
 all_users = (By.XPATH, "//label[text()='All users']")

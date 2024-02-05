@@ -1,17 +1,19 @@
 from time import sleep
 import pages.web_pages.main_page as main_page
+import pages.web_pages.server_admin_users
 import pages.web_pages.server_admin_users as server_admin_users
 import pages.web_pages.server_admin_new_user as server_admin_new_user
 import utils.manage_pages as page
 from extensions.ui_actions import UiActions
 from extensions.verifications import Verifications
 
-from utils.common_ops import wait_for_element, Oper, get_data
+from utils.common_ops import wait_for_element, Oper, get_data, read_csv, search_user, By, SearchBy
 
 
 # from pages.web_pages.main_page import MainPage
 
 class WebFlows:
+    user_data = read_csv(get_data('user_data_dir'))
 
     @staticmethod
     def login_flow(user: str, password: str):
@@ -114,6 +116,11 @@ class WebFlows:
     @staticmethod
     def grafana_home(driver):
         driver.get(get_data('URL'))
+
+    @staticmethod
+    def search_user(driver, value, i):
+        users = search_user(value)
+        UiActions.set_text(driver, pages.web_pages.server_admin_users.search, str(users[i]))
 
 
 

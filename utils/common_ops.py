@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 import tests.conftest as conft
 import xml.etree.ElementTree as ET
+import csv
 
 
 def get_data(node_name):
@@ -23,18 +24,43 @@ def wait_for_element(oper, locator):
         print("Element not found on the page.")
 
 
+def read_csv(file_name):
+    data = []
+    with open(file_name, mode='r') as file:
+        csv_reader = csv.DictReader(file)
+        for row in csv_reader:
+            data.append(row)
+        print(data[0])
+        return data
+
+
+def search_user(param):
+    data = read_csv(get_data("user_data_dir"))
+    if param == 'Name':
+        names = [row[param].strip() for row in data]
+        return names
+    elif param == 'Email':
+        emails = [row[param].strip() for row in data]
+        return emails
+    elif param == 'Username':
+        usernames = [row[param].strip() for row in data]
+        return usernames
+
 # Enum for selecting either displayed or existing element on page
 class Oper:
     Element_Exists = 'exists'
     Element_Displayed = 'displayed'
 
-# Enum for selecting a user by name or index
 
+# Enum for selecting a user by name or index
 
 class By:
     INDEX = 'index'
     USER = 'name'
 
 
-
+class SearchBy:
+    NAME = 'Name'
+    EMAIL = 'Email'
+    UNAME = 'Username'
 
