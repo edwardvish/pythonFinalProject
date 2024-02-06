@@ -4,7 +4,9 @@ from selenium.webdriver.support import expected_conditions as ec
 import tests.conftest as conft
 import xml.etree.ElementTree as ET
 import csv
-import re
+
+
+# import re
 
 
 def get_data(node_name):
@@ -36,22 +38,26 @@ def read_csv(file_name):
 
 
 def search_user(param):
-    domain = []
+    # domain = []
     data = read_csv(get_data("user_data_dir"))
     if param == 'Name':
         names = [row[param].strip() for row in data]
         return names
     elif param == 'Email':
         emails = [row[param].strip() for row in data]
-        pattern = r"@([A-Za-z0-9.-]+)"
-        for email in emails:
-            match = re.search(pattern, email)
-            if match:
-                domain.append(match.group(1))
-        return domain
+        return emails
+    # elif param == 'Domain':
+    #     emails = [row[param].strip() for row in data]
+    #     pattern = r"@([A-Za-z0-9.-]+)"
+    #     for email in emails:
+    #         match = re.search(pattern, email)
+    #         if match:
+    #             domain.append(match.group(1))
+    #     return domain
     elif param == 'Username':
         usernames = [row[param].strip() for row in data]
         return usernames
+
 
 # Enum for selecting either displayed or existing element on page
 class Oper:
@@ -70,4 +76,4 @@ class SearchBy:
     NAME = 'Name'
     EMAIL = 'Email'
     UNAME = 'Username'
-
+    # DOMAIN = 'Domain'
