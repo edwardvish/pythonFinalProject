@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions as ec
 import tests.conftest as conft
 import xml.etree.ElementTree as ET
 import csv
+import re
 
 
 def get_data(node_name):
@@ -35,13 +36,19 @@ def read_csv(file_name):
 
 
 def search_user(param):
+    domain = []
     data = read_csv(get_data("user_data_dir"))
     if param == 'Name':
         names = [row[param].strip() for row in data]
         return names
     elif param == 'Email':
         emails = [row[param].strip() for row in data]
-        return emails
+        pattern = r"@([A-Za-z0-9.-]+)"
+        for email in emails:
+            match = re.search(pattern, email)
+            if match:
+                domain.append(match.group(1))
+        return domain
     elif param == 'Username':
         usernames = [row[param].strip() for row in data]
         return usernames

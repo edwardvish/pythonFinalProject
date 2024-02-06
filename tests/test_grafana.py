@@ -37,6 +37,8 @@ class TestWeb(BaseTest):
     def test_user_filtering(self):
         WebFlows.open_users_page('Server Admin')
         for item in range(3):
+            # Use the search_user method and pass the driver, the desired search criteria (Name, Username or Email) and
+            # add the number of items/entries/users
             WebFlows.search_user(self.driver, SearchBy.UNAME, item)
             WebFlows.verify_user_num(1)
 
