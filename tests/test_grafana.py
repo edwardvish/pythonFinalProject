@@ -16,16 +16,16 @@ class TestWeb(BaseTest):
 
     def test_verify_upper_menu(self):
         WebFlows.verify_upper_menu_buttons()
-
-    # def test_add_new_user(self):
-    #     WebFlows.open_users_page('Server Admin')
-    #     WebFlows.create_new_user('Add new user', 'john', 'john', 'test@test.com', 'abc123456')
-    #     WebFlows.create_new_user('Add new user', 'edward', 'edward', 'test2@test.com', '2abc123456')
-    #     WebFlows.verify_user_num(3)
-
-    # def test_delete_user_by_index(self):
-    #     WebFlows.delete_user_by_index(self.driver, 0)
-    #     WebFlows.verify_user_num(2)
+    #
+    # # def test_add_new_user(self):
+    # #     WebFlows.open_users_page('Server Admin')
+    # #     WebFlows.create_new_user('Add new user', 'john', 'john', 'test@test.com', 'abc123456')
+    # #     WebFlows.create_new_user('Add new user', 'edward', 'edward', 'test2@test.com', '2abc123456')
+    # #     WebFlows.verify_user_num(3)
+    #
+    # # def test_delete_user_by_index(self):
+    # #     WebFlows.delete_user_by_index(self.driver, 0)
+    # #     WebFlows.verify_user_num(2)
 
     def test_add_new_users(self):
         WebFlows.open_users_page('Server Admin')

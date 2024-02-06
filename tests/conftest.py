@@ -4,12 +4,14 @@ import selenium
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.edge.service import Service
+from selenium.webdriver.support.event_firing_webdriver import EventFiringWebDriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from utils.common_ops import get_data
+from utils.event_listeners import EventListener
 from utils.manage_pages import ManagePages
 
 driver = None
@@ -18,7 +20,8 @@ action = None
 
 @pytest.fixture(scope='class')
 def init_web_driver(request):
-    globals()['driver'] = get_web_driver()
+    edriver = get_web_driver()
+    globals()['driver'] = EventFiringWebDriver(edriver, EventListener())
     driver = globals()['driver']
     driver.maximize_window()
     timeout = int(get_data('WaitTime'))
@@ -28,7 +31,7 @@ def init_web_driver(request):
     globals()['action'] = ActionChains(driver)
     ManagePages.init_web_pages()
     yield
-    time.sleep(5)
+    # time.sleep(5)
     driver.close()
 
 

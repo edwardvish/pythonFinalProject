@@ -63,7 +63,7 @@ class EventListener(AbstractEventListener):
         print(f"After executing script,{script}")
 
     def before_close(self, driver):
-        print(f"Before closing tab")
+        print(f"Before closing tab {driver.title}")
 
     def after_close(self, driver):
         print(f"After closing tab")
