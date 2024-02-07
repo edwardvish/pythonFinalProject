@@ -1,4 +1,6 @@
 import time
+from datetime import datetime
+
 import pytest
 import selenium
 from selenium import webdriver
@@ -52,6 +54,7 @@ def get_web_driver():
 
     return driver
 
+
 def get_chrome():
     chrome_driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))  # Selenium 4.x
     return chrome_driver
@@ -66,3 +69,8 @@ def get_edge():
     srv = Service(EdgeChromiumDriverManager().install())
     edge_driver = selenium.webdriver.Edge(service=srv)
     return edge_driver
+
+
+def pytest_exception_interact(node, call, report):
+    now = datetime.now()
+    image = get_data('ScreenshotPath') + 'screen_' + str(now) + '.png'

@@ -2,12 +2,12 @@
 <Environment>
     <!-- General -->
     <WaitTime>2</WaitTime>
-
+    <ScreenshotPath>./../allure-screen-shots/</ScreenshotPath>
     <!-- Web -->
     <Browser>Chrome</Browser>
     <URL>http://localhost:3000</URL>
     <UserName>admin</UserName>
     <Password>admin</Password>
-    <user_data_dir>C:/pythonProject/FinalProject/pythonProject/ddt/userdata.csv</user_data_dir>
+    <user_data_dir>../ddt/userdata.csv</user_data_dir>
 
 </Environment>
