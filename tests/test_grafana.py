@@ -1,6 +1,6 @@
 import allure
 import pytest
-
+from tests.conftest import eyes
 from utils.base_test import BaseTest
 from utils.common_ops import get_data, By, read_csv, SearchBy
 from workflows.web_flows import WebFlows
@@ -19,9 +19,9 @@ class TestWeb(BaseTest):
 
     @allure.title('Test01: Verify Upper Menu Buttons')
     @allure.description('This test verifies a upper menu buttons are displayed')
-
     def test_verify_upper_menu(self):
         WebFlows.verify_upper_menu_buttons()
+
     #
     # # def test_add_new_user(self):
     # #     WebFlows.open_users_page('Server Admin')
@@ -59,6 +59,15 @@ class TestWeb(BaseTest):
         WebFlows.delete_user(self.driver, By.USER, 'Daniel Hernandez')
         # WebFlows.delete_user(self.driver, By.INDEX, 1)
         WebFlows.verify_user_num(3)
+
+    @pytest.mark.skipif(get_data('Applitools')).lower() == 'false'
+    @allure.title('Test06: Visual Testing')
+    @allure.description('This test visually verifies grafana main screen')
+    def test_visual_verification_users(self):
+        eyes.open(self.driver, 'Grafana', 'User Table Test', )
+        WebFlows.open_users_page('Server Admin')
+        eyes.check_window('Users Table')
+
 
     def teardown_method(self):
         WebFlows.grafana_home(self.driver)

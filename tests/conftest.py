@@ -1,6 +1,5 @@
-import time
+import os
 from datetime import datetime
-
 import pytest
 import selenium
 from selenium import webdriver
@@ -15,15 +14,22 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from utils.common_ops import get_data
 from utils.event_listeners import EventListener
 from utils.manage_pages import ManagePages
+import allure
+from applitools.selenium import *
+from applitools.selenium.runner import EyesRunner
 
 driver = None
 action = None
-
+eyes = Eyes()# Applitools
 
 @pytest.fixture(scope='class')
 def init_web_driver(request):
-    edriver = get_web_driver()
-    globals()['driver'] = EventFiringWebDriver(edriver, EventListener())
+    if get_data('Applitools').lower() == 'true':
+        globals()['driver'] = get_web_driver()
+        eyes.api_key = get_data('ApplitoolsAPI')
+    else:
+        edriver = get_web_driver()
+        globals()['driver'] = EventFiringWebDriver(edriver, EventListener())
     driver = globals()['driver']
     driver.maximize_window()
     timeout = int(get_data('WaitTime'))
@@ -35,6 +41,8 @@ def init_web_driver(request):
     yield
     # time.sleep(5)
     driver.close()
+    eyes.close()
+    eyes.abort()
 
 
 def get_web_driver():
@@ -57,6 +65,7 @@ def get_web_driver():
 
 def get_chrome():
     chrome_driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))  # Selenium 4.x
+    # chrome_driver = selenium.webdriver.Chrome(ChromeDriverManager().install())
     return chrome_driver
 
 
@@ -71,6 +80,14 @@ def get_edge():
     return edge_driver
 
 
+@pytest.mark.usefixtures('init_web_driver')
 def pytest_exception_interact(node, call, report):
-    now = datetime.now()
-    image = get_data('ScreenshotPath') + 'screen_' + str(now) + '.png'
+    driver = node.funcargs['request'].cls.driver
+    if report.failed:
+        if driver is not None:  # incase we dont invoke the webdriver, i.e. API Testing
+            now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+            screenshot_path = os.path.join(get_data('ScreenshotPath'), f'screenshot_{now}.png')
+            driver.get_screenshot_as_file(screenshot_path)
+            print(f"Screenshot taken and saved to {screenshot_path}")
+            allure.attach.file(screenshot_path, name="Screenshot on Failure",
+                               attachment_type=allure.attachment_type.PNG)
