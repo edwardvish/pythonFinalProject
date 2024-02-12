@@ -122,10 +122,6 @@ class WebFlows:
         elif by == 'name':
             WebFlows.delete_user_by_username(driver, value)
 
-    @staticmethod
-    @allure.step('Return back to the main grafana screen')
-    def grafana_home(driver):
-        driver.get(get_data('URL'))
 
     @staticmethod
     @allure.step('search for a user using filtering')
@@ -133,12 +129,16 @@ class WebFlows:
         users = search_user(value)
         UiActions.set_text(driver, pages.web_pages.server_admin_users.search, str(users[i]))
 
+    @staticmethod
+    @allure.step('Return back to the main grafana screen')
+    def grafana_home(driver):
+        driver.get(get_data('URL'))
 
 
 
 
 
-
+ 
 
 
 

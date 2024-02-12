@@ -11,11 +11,14 @@ import csv
 
 @allure.step('Parse the content of the XML file')
 def get_data(node_name):
-    tree = ET.parse('C:/pythonProject/FinalProject/pythonProject/configuration/data.xml')
+    tree = ET.parse('../configuration/data.xml')
     root = tree.getroot()
     return root.find('.//' + node_name).text
 
 
+
+
+@allure.step('Waiting for element to appear in the webpage')
 def wait_for_element(oper, locator):
     timeout = int(get_data('WaitTime'))
     try:
@@ -27,6 +30,7 @@ def wait_for_element(oper, locator):
     except NoSuchElementException:
         print("Element not found on the page.")
 
+@allure.step('Read the contents of the CSV file and storing it into a dictionary')
 
 def read_csv(file_name):
     data = []
